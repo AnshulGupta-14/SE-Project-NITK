@@ -11,6 +11,7 @@ const Apps = () => {
         <Nav></Nav>
         <Routing></Routing>
         <Context></Context>
+        
     </div>
   )
 }
