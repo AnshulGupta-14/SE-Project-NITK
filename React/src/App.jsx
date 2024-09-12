@@ -1,5 +1,5 @@
 import React from "react";
-import Apps from "./COMPONENTS/Projects/First/Apps";
+import Apps from "./COMPONENTS/Apps";
 
 function App() {
     return (
