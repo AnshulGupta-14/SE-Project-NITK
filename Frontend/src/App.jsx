@@ -4,7 +4,7 @@ import AddProduct from './Components/AddProduct'
 
 const App = () => {
   return (
-    <div>
+    <div className='w-full min-h-screen p-5'>
       <Routing></Routing>
     </div>
   )

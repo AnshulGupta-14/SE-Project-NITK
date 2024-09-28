@@ -1,10 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import Cards from "./Cards";
 
 const Home = () => {
   const navigate = useNavigate();
-  const [products, setproducts] = useState([])
+  const [products, setproducts] = useState([]);
 
   const handelsubmit = () => {
     localStorage.removeItem("token");
@@ -19,6 +20,7 @@ const Home = () => {
       alert("Failed to fetch products");
     })
   }, [])
+
   return (
     <div>
       <NavLink to="/signup">SignUp</NavLink>
@@ -28,17 +30,21 @@ const Home = () => {
         <button onClick={handelsubmit}>LogOut</button>
       )}
 
-      <div className="w-full">
-          {products.length > 0 ? products.map((product,i) =>{
-            return (
-              <div key={i}>
-                <h1>{product.name}</h1>
-                <p>{product.description}</p>
-                <img src={'http://localhost:3000/' + product.image} alt="" />
-              </div>
-            )
-          }) : 'products'}
-      </div>
+      {/* <div className="w-full">
+        {products.length > 0
+          ? products.map((product, i) => {
+              return (
+                <div key={i}>
+                  <h1>{product.name}</h1>
+                  <p>{product.description}</p>
+                  <img src={product.cover_image} alt="" />
+                </div>
+              );
+            })
+          : "products"}
+      </div> */}
+
+      <Cards data={products}></Cards>
     </div>
   );
 };
