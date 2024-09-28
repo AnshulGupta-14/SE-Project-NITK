@@ -31,13 +31,13 @@ const Nav = () => {
   console.log(products);
 
   return (
-    <div className="w-full h-[10vh] p-2 flex items-center">
+    <div className="fixed w-full h-[10vh] p-2 left-0 top-0 bg-zinc-200 px-10 flex items-center">
       <div className="w-[20%]"></div>
       <div className="relative p-1 h-full w-[50%] mx-auto flex justify-between">
         <input
           type="text"
           placeholder="Find Books"
-          className="p-2 border-[2px] border-black w-[90%] h-full rounded-lg"
+          className="p-2 border-[2px] border-black w-[91%] h-full rounded-lg"
           value={search}
           onChange={(e) => setsearch(e.target.value)}
         />

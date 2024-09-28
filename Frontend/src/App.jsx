@@ -1,14 +1,12 @@
-import React from 'react'
-import Routing from './Utils/Routing'
-import Nav from './Components/Nav'
+import React from "react";
+import Routing from "./Utils/Routing";
 
 const App = () => {
   return (
-    <div className='w-full min-h-screen px-5'>
-      <Nav></Nav>
+    <div className="w-full h-screen">
       <Routing></Routing>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
