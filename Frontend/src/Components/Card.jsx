@@ -1,7 +1,6 @@
 import React from "react";
 
 const Card = ({ data }) => {
-  console.log(data);
   return (
     <div className="w-[22vw] h-[40vh] ">
       <div className="w-full h-[70%] bg-black">
