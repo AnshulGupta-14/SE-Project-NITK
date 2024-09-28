@@ -71,7 +71,7 @@ const Nav = () => {
       </div>
       <div className="flex items-center justify-between bg-red-100 w-[20%]">
         <h1>Language</h1>
-        <NavLink>Login</NavLink>
+        <NavLink to={'/login'}>Login</NavLink>
         <NavLink>Sell</NavLink>
       </div>
     </div>
