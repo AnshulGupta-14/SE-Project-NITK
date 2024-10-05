@@ -4,6 +4,10 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const jwt = require("jsonwebtoken");
 const multer = require("multer");
+const mongoose = require("mongoose");
+const Users = require("./Models/Users");
+const Products = require("./Models/Products");
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "./uploads");
@@ -13,45 +17,38 @@ const storage = multer.diskStorage({
     cb(null, file.fieldname + "-" + uniqueSuffix);
   },
 });
-const upload = multer({ storage: storage });
-const app = express();
 
+const upload = multer({ storage: storage });
+
+const app = express();
 app.use('/uploads',express.static(path.join(__dirname, 'uploads')));
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-const mongoose = require("mongoose");
 
-mongoose.connect("mongodb://localhost:27017/local");
-const Users = mongoose.model("Users", {
-  username: String,
-  password: String,
-});
-const Products = mongoose.model("Products", {
-  name: String,
-  price: Number,
-  description: String,
-  image: String,
-  category: String,
+mongoose.connect("mongodb://localhost:27017/testdb").then(()=>{
+  console.log("Connected to MongoDB");
+}).catch(err => {
+  console.log("Error connecting to MongoDB", err);
 });
 
 app.get("/", function (req, res) {
   res.send("Server is running");
 });
 
-app.post("/signup", function (req, res) {
-  const { username, password } = req.body;
-  const user = new Users({ username: username, password: password });
+app.post('/signup',(req, res) => {
+  const { username, password, email, mobile, regno, name } = req.body;
+  const user = new Users({ username: username, password: password, email: email, mobile: mobile, regno: regno, name: name });
   user
-    .save()
-    .then(() => {
+   .save()
+   .then(() => {
       res.send({ message: "User saved" });
     })
-    .catch(() => {
+   .catch(() => {
       res.send({ message: "Failed to save user" });
     });
-});
+})
 
 app.post("/login", function (req, res) {
   const { username, password } = req.body;
@@ -71,14 +68,14 @@ app.post("/login", function (req, res) {
     });
 });
 
-app.post("/add-product", upload.single("image"), (req, res) => {
-  const { name, price, description, category } = req.body;
+app.post("/add-product",upload.single("image"), (req, res) => {
+  const { title, price, description, category } = req.body;
   const product = new Products({
-    name: name,
+    title: title,
     price: price,
     description: description,
-    image: req.file.path,
     category: category,
+    // image: req.file.path,
   });
   product
     .save()

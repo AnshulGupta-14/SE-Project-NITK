@@ -4,13 +4,17 @@ import { NavLink } from "react-router-dom";
 
 const SignUp = () => {
   const [username, setusername] = useState("");
+  const [name, setname] = useState("");
   const [password, setpassword] = useState("");
+  const [email, setemail] = useState("");
+  const [reg, setreg] = useState(null);
+  const [mobile, setmobile] = useState("");
 
   const submithandler = () => {
-    const data = { username: username, password: password };
+    const data = { username, password, email, mobile, reg, name };
     const url = "http://localhost:3000/signup";
 
-    if (data.username && data.password) {
+    if (data.username && data.password && data.email && data.name && data.mobile && data.reg) {
       axios
         .post(url, data)
         .then((res) => {
@@ -20,45 +24,77 @@ const SignUp = () => {
         .catch((err) => {
           alert("Failed to signup");
         });
-    }
-    else alert("Please enter correct username and password");
+    } else alert("Please enter correct username and password");
   };
 
   return (
-    <div className="w-full h-full flex items-center justify-center">
-      <div className="w-full h-full absolute top-0 left-0 bg-black opacity-90"></div>
-      <div className="w-[30%] h-[80%] absolute top-[10%] bg-zinc-200">
-        <h1>Login</h1>
-        <div className="flex gap-5">
-          <h2 className="">USERNAME</h2>
+    <div className="w-full h-screen pt-[6%] flex items-center justify-center text-[13px] font-semibold">
+      <div className="w-[30%] flex flex-col px-10 py-5 bg-white rounded-xl">
+        <h1 className="text-2xl font-bold ">Create Account</h1>
+        <h2 className="mt-3">Your Name</h2>
+        <input
+          className="border border-black p-2 py-1 text-md rounded-md"
+          type="text"
+          value={name}
+          onChange={(e) => {
+            setname(e.target.value);
+          }}
+        />
+        <h2 className="mt-3">Registration Number</h2>
+        <input
+          className="border border-black p-2 py-1 text-md rounded-md"
+          type="number"
+          value={reg}
+          onChange={(e) => {
+            setreg(e.target.value);
+          }}
+        />
+        <h2 className="mt-3">Email Id</h2>
+        <input
+          className="border border-black p-2 py-1 text-md rounded-md"
+          type="email"
+          value={email}
+          onChange={(e) => {
+            setemail(e.target.value);
+          }}
+        />
+        <h2 className="mt-3">Phone Number</h2>
+        <div className="flex gap-2">
+          <button className="border border-black p-2 py-1 text-md rounded-md">+91</button>
           <input
-            className="border"
-            type="text"
-            value={username}
+            className="w-full border border-black p-2 py-1 text-md rounded-md"
+            type="tel"
+            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+            value={mobile}
             onChange={(e) => {
-              setusername(e.target.value);
+              setmobile(e.target.value);
             }}
           />
         </div>
-        <div className="flex gap-5">
-          <h2>PASSWORD</h2>
-          <input
-            className="border"
-            type="text"
-            value={password}
-            onChange={(e) => {
-              setpassword(e.target.value);
-            }}
-          />
-        </div>
-        <div className="flex items-center justify-center gap-5 mt-5">
-          <input
-            className="rounded-full px-5 py-2 bg-red-100 flex items-center justify-center"
-            type="submit"
-            value={"SignUp"}
-            onClick={submithandler}
-          />
-        </div>
+        <h2 className="mt-3">Username</h2>
+        <input
+          className="border border-black p-2 py-1 text-md rounded-md"
+          type="text"
+          value={username}
+          onChange={(e) => {
+            setusername(e.target.value);
+          }}
+        />
+        <h2 className="mt-3">Create Password</h2>
+        <input
+          className="border border-black p-2 py-1 text-md rounded-md"
+          type="text"
+          value={password}
+          onChange={(e) => {
+            setpassword(e.target.value);
+          }}
+        />
+        <input
+          className="rounded-full mt-7 mx-auto w-1/3 px-5 py-2 bg-[#fcd12d]"
+          type="submit"
+          value={"Register"}
+          onClick={submithandler}
+        />
       </div>
     </div>
   );
